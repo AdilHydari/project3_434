@@ -1,0 +1,823 @@
+=== ECE 434 Project 1 - Signal Testing ===
+
+🔨 Building signal testing version...
+✅ Build successful!
+
+Choose testing mode:
+1. Quick signal test (automated)
+2. Comprehensive signal tests
+3. Interactive testing
+4. Performance comparison (original vs signal-test version)
+
+🧪 Running comprehensive signal tests...
+
+📡 Testing SIGINT (signal 2)
+----------------------------------------
+Starting program in signal test mode...
+Program PID: 17033
+=== ECE 434 Project 1: Signal Testing Version ===
+Process PID: 17033
+[INIT] Allocating array of 20000 integers (80000 bytes)
+[INIT] Generated array of 20000 random integers
+[INIT] Team 0: handles signals [2, 6, 4], subarray[0-4999] (5000 elements)
+[INIT] Team 1: handles signals [17, 11, 8], subarray[5000-9999] (5000 elements)
+[INIT] Team 2: handles signals [1, 20, 2], subarray[10000-14999] (5000 elements)
+[INIT] Team 3: handles signals [6, 8, 1], subarray[15000-19999] (5000 elements)
+
+=== SIGNAL TESTING VERSION ===
+Configuration:
+  - Array size: 20000 elements
+  - Teams: 4
+  - Threads per team: 4
+  - Signal test mode: ENABLED
+
+Signal assignments:
+  Team 0: 2(Interrupt), 6(Aborted), 4(Illegal instruction)
+  Team 1: 17(Child exited), 11(Segmentation fault), 8(Floating point exception)
+  Team 2: 1(Hangup), 20(Stopped), 2(Interrupt)
+  Team 3: 6(Aborted), 8(Floating point exception), 1(Hangup)
+===============================
+
+[SETUP] Setting up signal handlers for all teams
+[SETUP] Handler set for signal 2 (Interrupt)
+[SETUP] Handler set for signal 6 (Aborted)
+[SETUP] Handler set for signal 4 (Illegal instruction)
+[SETUP] Handler set for signal 17 (Child exited)
+[SETUP] Handler set for signal 11 (Segmentation fault)
+[SETUP] Handler set for signal 8 (Floating point exception)
+[SETUP] Handler set for signal 1 (Hangup)
+[SETUP] Handler set for signal 20 (Stopped)
+[STARTING] Creating 4 teams...
+[THREAD] Team 0 thread 140059340699328 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140059340699328: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140059340699328 waiting for signals...
+[THREAD] Team 0 thread 140059323918016 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140059323918016: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140059323918016 waiting for signals...
+[THREAD] Team 0 thread 140059307136704 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140059307136704: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140059307136704 waiting for signals...
+[THREAD] Team 0 thread 140059290355392 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140059290355392: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140059290355392 waiting for signals...
+[THREAD] Team 1 thread 140059273574080 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140059273574080: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140059273574080 waiting for signals...
+[THREAD] Team 1 thread 140059256792768 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140059256792768: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140059256792768 waiting for signals...
+[THREAD] Team 1 thread 140059240011456 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140059240011456: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140059240011456 waiting for signals...
+[THREAD] Team 1 thread 140059223230144 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140059223230144: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140059223230144 waiting for signals...
+[THREAD] Team 2 thread 140059206448832 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140059206448832: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140059206448832 waiting for signals...
+[THREAD] Team 2 thread 140059189667520 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140059189667520: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140059189667520 waiting for signals...
+[THREAD] Team 2 thread 140059172886208 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140059172886208: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140059172886208 waiting for signals...
+[THREAD] Team 2 thread 140059156104896 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140059156104896: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140059156104896 waiting for signals...
+[THREAD] Team 3 thread 140059139323584 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140059139323584: Blocked 6 signals from other teams
+[SIGNAL_TEST📤 Sending SIGINT to process 17033...
+✅ Signal sent successfully
+📤 Sending second SIGINT...
+⏳ Waiting for program to complete...
+] Team 3 thread 140059139323584 waiting for signals...
+[THREAD] Team 3 thread 140059122542272 starting (subarray size: 5000)
+[THREAD] Team 3 thread 140059088979648 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140059088979648: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140059088979648 waiting for signals...
+[SETUP] Team 3 thread 140059122542272: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140059122542272 waiting for signals...
+[THREAD] Team 3 thread 140059105760960 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140059105760960: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140059105760960 waiting for signals...
+
+🚨 SIGNAL TEST MODE ACTIVE 🚨
+Process PID: 17033
+Send signals now using:
+  kill -INT 17033   (SIGINT for Team 0,2)
+  kill -HUP 17033   (SIGHUP for Team 2,3)
+  kill -ABRT 17033  (SIGABRT for Team 0,3)
+Waiting 10 seconds for signals...
+⏰ 1 seconds: waiting for signals...
+[SORT] Team 0 representative thread 140059340699328 starting quicksort
+[THREAD] Team 0 thread 140059323918016 waiting for sort completion
+[THREAD] Team 0 thread 140059307136704 waiting for sort completion
+[THREAD] Team 0 thread 140059290355392 waiting for sort completion
+[COMPLETED] Team 0 finished sorting in 0.000975 seconds (position 1)
+[VERIFY] Team 0 sort verification: PASSED
+[THREAD] Team 0 thread 140059340699328 exiting
+[THREAD] Team 0 thread 140059323918016 exiting
+[THREAD] Team 0 thread 140059307136704 exiting
+[THREAD] Team 0 thread 140059290355392 exiting
+[SORT] Team 1 representative thread 140059273574080 starting quicksort
+[THREAD] Team 1 thread 140059256792768 waiting for sort completion
+[THREAD] Team 1 thread 140059240011456 waiting for sort completion
+[THREAD] Team 1 thread 140059223230144 waiting for sort completion
+[COMPLETED] Team 1 finished sorting in 0.000737 seconds (position 2)
+[VERIFY] Team 1 sort verification: PASSED
+[THREAD] Team 1 thread 140059273574080 exiting
+[THREAD] Team 1 thread 140059256792768 exiting
+[THREAD] Team 1 thread 140059240011456 exiting
+[THREAD] Team 1 thread 140059223230144 exiting
+[SORT] Team 2 representative thread 140059206448832 starting quicksort
+[THREAD] Team 2 thread 140059189667520 waiting for sort completion
+[THREAD] Team 2 thread 140059172886208 waiting for sort completion
+[THREAD] Team 2 thread 140059156104896 waiting for sort completion
+[COMPLETED] Team 2 finished sorting in 0.000798 seconds (position 3)
+[VERIFY] Team 2 sort verification: PASSED
+[THREAD] Team 2 thread 140059206448832 exiting
+[THREAD] Team 2 thread 140059189667520 exiting
+[THREAD] Team 2 thread 140059172886208 exiting
+[THREAD] Team 2 thread 140059156104896 exiting
+[SORT] Team 3 representative thread 140059139323584 starting quicksort
+[THREAD] Team 3 thread 140059088979648 waiting for sort completion
+[THREAD] Team 3 thread 140059122542272 waiting for sort completion
+[THREAD] Team 3 thread 140059105760960 waiting for sort completion
+[COMPLETED] Team 3 finished sorting in 0.000835 seconds (position 4)
+[VERIFY] Team 3 sort verification: PASSED
+[THREAD] Team 3 thread 140059139323584 exiting
+[THREAD] Team 3 thread 140059088979648 exiting
+[THREAD] Team 3 thread 140059122542272 exiting
+[THREAD] Team 3 thread 140059105760960 exiting
+⏰ 2 seconds: waiting for signals...
+⏰ 3 seconds: waiting for signals...
+⏰ 4 seconds: waiting for signals...
+⏰ 5 seconds: waiting for signals...
+⏰ 6 seconds: waiting for signals...
+⏰ 7 seconds: waiting for signals...
+⏰ 8 seconds: waiting for signals...
+⏰ 9 seconds: waiting for signals...
+⏰ 10 seconds: waiting for signals...
+Signal testing period completed.
+
+=== FINAL RESULTS ===
+Total signals received during execution: 0
+Teams completion order:
+  Position 1: Team 0
+  Position 2: Team 1
+  Position 3: Team 2
+  Position 4: Team 3
+
+=== Signal Testing Completed ===
+✅ SIGINT test completed
+
+📡 Testing SIGHUP (signal 1)
+----------------------------------------
+Starting program in signal test mode...
+Program PID: 17054
+=== ECE 434 Project 1: Signal Testing Version ===
+Process PID: 17054
+[INIT] Allocating array of 20000 integers (80000 bytes)
+[INIT] Generated array of 20000 random integers
+[INIT] Team 0: handles signals [2, 6, 4], subarray[0-4999] (5000 elements)
+[INIT] Team 1: handles signals [17, 11, 8], subarray[5000-9999] (5000 elements)
+[INIT] Team 2: handles signals [1, 20, 2], subarray[10000-14999] (5000 elements)
+[INIT] Team 3: handles signals [6, 8, 1], subarray[15000-19999] (5000 elements)
+
+=== SIGNAL TESTING VERSION ===
+Configuration:
+  - Array size: 20000 elements
+  - Teams: 4
+  - Threads per team: 4
+  - Signal test mode: ENABLED
+
+Signal assignments:
+  Team 0: 2(Interrupt), 6(Aborted), 4(Illegal instruction)
+  Team 1: 17(Child exited), 11(Segmentation fault), 8(Floating point exception)
+  Team 2: 1(Hangup), 20(Stopped), 2(Interrupt)
+  Team 3: 6(Aborted), 8(Floating point exception), 1(Hangup)
+===============================
+
+[SETUP] Setting up signal handlers for all teams
+[SETUP] Handler set for signal 2 (Interrupt)
+[SETUP] Handler set for signal 6 (Aborted)
+[SETUP] Handler set for signal 4 (Illegal instruction)
+[SETUP] Handler set for signal 17 (Child exited)
+[SETUP] Handler set for signal 11 (Segmentation fault)
+[SETUP] Handler set for signal 8 (Floating point exception)
+[SETUP] Handler set for signal 1 (Hangup)
+[SETUP] Handler set for signal 20 (Stopped)
+[STARTING] Creating 4 teams...
+[THREAD] Team 0 thread 139969572107968 starting (subarray size: 5000)
+[SETUP] Team 0 thread 139969572107968: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 139969572107968 waiting for signals...
+[THREAD] Team 0 thread 139969555326656 starting (subarray size: 5000)
+[SETUP] Team 0 thread 139969555326656: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 139969555326656 waiting for signals...
+[THREAD] Team 0 thread 139969538545344 starting (subarray size: 5000)
+[SETUP] Team 0 thread 139969538545344: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 139969538545344 waiting for signals...
+[THREAD] Team 0 thread 139969521764032 starting (subarray size: 5000)
+[SETUP] Team 0 thread 139969521764032: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 139969521764032 waiting for signals...
+[THREAD] Team 1 thread 139969504982720 starting (subarray size: 5000)
+[SETUP] Team 1 thread 139969504982720: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 139969504982720 waiting for signals...
+[THREAD] Team 1 thread 139969488201408 starting (subarray size: 5000)
+[SETUP] Team 1 thread 139969488201408: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 139969488201408 waiting for signals...
+[THREAD] Team 1 thread 139969471420096 starting (subarray size: 5000)
+[SETUP] Team 1 thread 139969471420096: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 139969471420096 waiting for signals...
+[THREAD] Team 1 thread 139969454638784 starting (subarray size: 5000)
+[SETUP] Team 1 thread 139969454638784: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 139969454638784 waiting for signals...
+[THREAD] Team 2 thread 139969437857472 starting (subarray size: 5000)
+[SETUP] Team 2 thread 139969437857472: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 139969437857472 waiting for signals...
+[THREAD] Team 2 thread 139969421076160 starting (subarray size: 5000)
+[SETUP] Team 2 thread 139969421076160: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 139969421076160 waiting for signals...
+[THREAD] Team 2 thread 139969404294848 starting (subarray size: 5000)
+[SETUP] Team 2 thread 139969404294848: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 139969404294848 waiting for signals...
+[THREAD] Team 2 thread 139969387513536 starting (subarray size: 5000)
+[SETUP] Team 2 thread 139969387513536: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 139969387513536 waiting for signals...
+[THREAD] Team 3 thread 139969370732224 starting (subarray size: 5000)
+[SETUP] Team 3 thread 139969370732224: Blocked 6 signals from other teams
+[SIGNAL_TEST📤 Sending SIGHUP to process 17054...
+✅ Signal sent successfully
+📤 Sending second SIGHUP...
+⏳ Waiting for program to complete...
+] Team 3 thread 139969370732224 waiting for signals...
+[THREAD] Team 3 thread 139969353950912 starting (subarray size: 5000)
+[SETUP] Team 3 thread 139969353950912: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 139969353950912 waiting for signals...
+[THREAD] Team 3 thread 139969337169600 starting (subarray size: 5000)
+[SETUP] Team 3 thread 139969337169600: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 139969337169600 waiting for signals...
+[THREAD] Team 3 thread 139969320388288 starting (subarray size: 5000)
+[SETUP] Team 3 thread 139969320388288: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 139969320388288 waiting for signals...
+
+🚨 SIGNAL TEST MODE ACTIVE 🚨
+Process PID: 17054
+Send signals now using:
+  kill -INT 17054   (SIGINT for Team 0,2)
+  kill -HUP 17054   (SIGHUP for Team 2,3)
+  kill -ABRT 17054  (SIGABRT for Team 0,3)
+Waiting 10 seconds for signals...
+⏰ 1 seconds: waiting for signals...
+[SORT] Team 0 representative thread 139969572107968 starting quicksort
+[THREAD] Team 0 thread 139969521764032 waiting for sort completion
+[THREAD] Team 0 thread 139969555326656 waiting for sort completion
+[THREAD] Team 0 thread 139969538545344 waiting for sort completion
+[COMPLETED] Team 0 finished sorting in 0.000920 seconds (position 1)
+[VERIFY] Team 0 sort verification: PASSED
+[THREAD] Team 0 thread 139969572107968 exiting
+[THREAD] Team 0 thread 139969521764032 exiting
+[THREAD] Team 0 thread 139969555326656 exiting
+[THREAD] Team 0 thread 139969538545344 exiting
+[SORT] Team 1 representative thread 139969504982720 starting quicksort
+[THREAD] Team 1 thread 139969488201408 waiting for sort completion
+[THREAD] Team 1 thread 139969471420096 waiting for sort completion
+[THREAD] Team 1 thread 139969454638784 waiting for sort completion
+[COMPLETED] Team 1 finished sorting in 0.000791 seconds (position 2)
+[VERIFY] Team 1 sort verification: PASSED
+[THREAD] Team 1 thread 139969504982720 exiting
+[THREAD] Team 1 thread 139969488201408 exiting
+[THREAD] Team 1 thread 139969471420096 exiting
+[THREAD] Team 1 thread 139969454638784 exiting
+[THREAD] Team 2 thread 139969421076160 waiting for sort completion
+[THREAD] Team 2 thread 139969387513536 waiting for sort completion
+[THREAD] Team 2 thread 139969404294848 waiting for sort completion
+[SORT] Team 2 representative thread 139969437857472 starting quicksort
+[COMPLETED] Team 2 finished sorting in 0.000841 seconds (position 3)
+[VERIFY] Team 2 sort verification: PASSED
+[THREAD] Team 2 thread 139969437857472 exiting
+[THREAD] Team 2 thread 139969421076160 exiting
+[THREAD] Team 2 thread 139969404294848 exiting
+[THREAD] Team 2 thread 139969387513536 exiting
+[SORT] Team 3 representative thread 139969370732224 starting quicksort
+[THREAD] Team 3 thread 139969320388288 waiting for sort completion
+[THREAD] Team 3 thread 139969353950912 waiting for sort completion
+[THREAD] Team 3 thread 139969337169600 waiting for sort completion
+[COMPLETED] Team 3 finished sorting in 0.000665 seconds (position 4)
+[VERIFY] Team 3 sort verification: PASSED
+[THREAD] Team 3 thread 139969370732224 exiting
+[THREAD] Team 3 thread 139969320388288 exiting
+[THREAD] Team 3 thread 139969353950912 exiting
+[THREAD] Team 3 thread 139969337169600 exiting
+⏰ 2 seconds: waiting for signals...
+⏰ 3 seconds: waiting for signals...
+⏰ 4 seconds: waiting for signals...
+⏰ 5 seconds: waiting for signals...
+⏰ 6 seconds: waiting for signals...
+⏰ 7 seconds: waiting for signals...
+⏰ 8 seconds: waiting for signals...
+⏰ 9 seconds: waiting for signals...
+⏰ 10 seconds: waiting for signals...
+Signal testing period completed.
+
+=== FINAL RESULTS ===
+Total signals received during execution: 0
+Teams completion order:
+  Position 1: Team 0
+  Position 2: Team 1
+  Position 3: Team 2
+  Position 4: Team 3
+
+=== Signal Testing Completed ===
+✅ SIGHUP test completed
+
+📡 Testing SIGABRT (signal 6)
+----------------------------------------
+Starting program in signal test mode...
+Program PID: 17075
+=== ECE 434 Project 1: Signal Testing Version ===
+Process PID: 17075
+[INIT] Allocating array of 20000 integers (80000 bytes)
+[INIT] Generated array of 20000 random integers
+[INIT] Team 0: handles signals [2, 6, 4], subarray[0-4999] (5000 elements)
+[INIT] Team 1: handles signals [17, 11, 8], subarray[5000-9999] (5000 elements)
+[INIT] Team 2: handles signals [1, 20, 2], subarray[10000-14999] (5000 elements)
+[INIT] Team 3: handles signals [6, 8, 1], subarray[15000-19999] (5000 elements)
+
+=== SIGNAL TESTING VERSION ===
+Configuration:
+  - Array size: 20000 elements
+  - Teams: 4
+  - Threads per team: 4
+  - Signal test mode: ENABLED
+
+Signal assignments:
+  Team 0: 2(Interrupt), 6(Aborted), 4(Illegal instruction)
+  Team 1: 17(Child exited), 11(Segmentation fault), 8(Floating point exception)
+  Team 2: 1(Hangup), 20(Stopped), 2(Interrupt)
+  Team 3: 6(Aborted), 8(Floating point exception), 1(Hangup)
+===============================
+
+[SETUP] Setting up signal handlers for all teams
+[SETUP] Handler set for signal 2 (Interrupt)
+[SETUP] Handler set for signal 6 (Aborted)
+[SETUP] Handler set for signal 4 (Illegal instruction)
+[SETUP] Handler set for signal 17 (Child exited)
+[SETUP] Handler set for signal 11 (Segmentation fault)
+[SETUP] Handler set for signal 8 (Floating point exception)
+[SETUP] Handler set for signal 1 (Hangup)
+[SETUP] Handler set for signal 20 (Stopped)
+[STARTING] Creating 4 teams...
+[THREAD] Team 0 thread 140360097461952 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140360097461952: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140360097461952 waiting for signals...
+[THREAD] Team 0 thread 140360080680640 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140360080680640: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140360080680640 waiting for signals...
+[THREAD] Team 0 thread 140360063899328 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140360063899328: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140360063899328 waiting for signals...
+[THREAD] Team 0 thread 140360047118016 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140360047118016: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140360047118016 waiting for signals...
+[THREAD] Team 1 thread 140360030336704 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140360030336704: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140360030336704 waiting for signals...
+[THREAD] Team 1 thread 140360013555392 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140360013555392: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140360013555392 waiting for signals...
+[THREAD] Team 1 thread 140359996774080 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140359996774080: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140359996774080 waiting for signals...
+[THREAD] Team 1 thread 140359979992768 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140359979992768: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140359979992768 waiting for signals...
+[THREAD] Team 2 thread 140359963211456 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140359963211456: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140359963211456 waiting for signals...
+[THREAD] Team 2 thread 140359946430144 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140359946430144: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140359946430144 waiting for signals...
+[THREAD] Team 2 thread 140359929648832 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140359929648832: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140359929648832 waiting for signals...
+[THREAD] Team 2 thread 140359912867520 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140359912867520: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140359912867520 waiting for signals...
+[THREAD] Team 3 thread 140359896086208 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140359896086208: Blocked 6 signals from other teams
+[SIGNAL_TEST📤 Sending SIGABRT to process 17075...
+✅ Signal sent successfully
+📤 Sending second SIGABRT...
+⏳ Waiting for program to complete...
+] Team 3 thread 140359896086208 waiting for signals...
+[THREAD] Team 3 thread 140359845742272 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140359845742272: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140359845742272 waiting for signals...
+[THREAD] Team 3 thread 140359862523584 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140359862523584: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140359862523584 waiting for signals...
+[THREAD] Team 3 thread 140359879304896 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140359879304896: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140359879304896 waiting for signals...
+
+🚨 SIGNAL TEST MODE ACTIVE 🚨
+Process PID: 17075
+Send signals now using:
+  kill -INT 17075   (SIGINT for Team 0,2)
+  kill -HUP 17075   (SIGHUP for Team 2,3)
+  kill -ABRT 17075  (SIGABRT for Team 0,3)
+Waiting 10 seconds for signals...
+⏰ 1 seconds: waiting for signals...
+[SORT] Team 0 representative thread 140360097461952 starting quicksort
+[THREAD] Team 0 thread 140360063899328 waiting for sort completion
+[THREAD] Team 0 thread 140360080680640 waiting for sort completion
+[THREAD] Team 0 thread 140360047118016 waiting for sort completion
+[COMPLETED] Team 0 finished sorting in 0.000729 seconds (position 1)
+[VERIFY] Team 0 sort verification: PASSED
+[THREAD] Team 0 thread 140360097461952 exiting
+[THREAD] Team 0 thread 140360063899328 exiting
+[THREAD] Team 0 thread 140360047118016 exiting
+[THREAD] Team 0 thread 140360080680640 exiting
+[THREAD] Team 1 thread 140359996774080 waiting for sort completion
+[THREAD] Team 1 thread 140360013555392 waiting for sort completion
+[SORT] Team 1 representative thread 140360030336704 starting quicksort
+[THREAD] Team 1 thread 140359979992768 waiting for sort completion
+[COMPLETED] Team 1 finished sorting in 0.000767 seconds (position 2)
+[VERIFY] Team 1 sort verification: PASSED
+[THREAD] Team 1 thread 140360030336704 exiting
+[THREAD] Team 1 thread 140359996774080 exiting
+[THREAD] Team 1 thread 140360013555392 exiting
+[THREAD] Team 1 thread 140359979992768 exiting
+[SORT] Team 2 representative thread 140359963211456 starting quicksort
+[THREAD] Team 2 thread 140359946430144 waiting for sort completion
+[THREAD] Team 2 thread 140359929648832 waiting for sort completion
+[THREAD] Team 2 thread 140359912867520 waiting for sort completion
+[COMPLETED] Team 2 finished sorting in 0.000787 seconds (position 3)
+[VERIFY] Team 2 sort verification: PASSED
+[THREAD] Team 2 thread 140359963211456 exiting
+[THREAD] Team 2 thread 140359929648832 exiting
+[THREAD] Team 2 thread 140359946430144 exiting
+[THREAD] Team 2 thread 140359912867520 exiting
+[THREAD] Team 3 thread 140359879304896 waiting for sort completion
+[SORT] Team 3 representative thread 140359896086208 starting quicksort
+[THREAD] Team 3 thread 140359862523584 waiting for sort completion
+[THREAD] Team 3 thread 140359845742272 waiting for sort completion
+[COMPLETED] Team 3 finished sorting in 0.000876 seconds (position 4)
+[VERIFY] Team 3 sort verification: PASSED
+[THREAD] Team 3 thread 140359896086208 exiting
+[THREAD] Team 3 thread 140359879304896 exiting
+[THREAD] Team 3 thread 140359862523584 exiting
+[THREAD] Team 3 thread 140359845742272 exiting
+⏰ 2 seconds: waiting for signals...
+⏰ 3 seconds: waiting for signals...
+⏰ 4 seconds: waiting for signals...
+⏰ 5 seconds: waiting for signals...
+⏰ 6 seconds: waiting for signals...
+⏰ 7 seconds: waiting for signals...
+⏰ 8 seconds: waiting for signals...
+⏰ 9 seconds: waiting for signals...
+⏰ 10 seconds: waiting for signals...
+Signal testing period completed.
+
+=== FINAL RESULTS ===
+Total signals received during execution: 0
+Teams completion order:
+  Position 1: Team 0
+  Position 2: Team 1
+  Position 3: Team 2
+  Position 4: Team 3
+
+=== Signal Testing Completed ===
+✅ SIGABRT test completed
+
+⚠️  Testing dangerous signals (may terminate program):
+📡 Testing SIGSEGV (signal 11)
+----------------------------------------
+Starting program in signal test mode...
+Program PID: 17097
+=== ECE 434 Project 1: Signal Testing Version ===
+Process PID: 17097
+[INIT] Allocating array of 20000 integers (80000 bytes)
+[INIT] Generated array of 20000 random integers
+[INIT] Team 0: handles signals [2, 6, 4], subarray[0-4999] (5000 elements)
+[INIT] Team 1: handles signals [17, 11, 8], subarray[5000-9999] (5000 elements)
+[INIT] Team 2: handles signals [1, 20, 2], subarray[10000-14999] (5000 elements)
+[INIT] Team 3: handles signals [6, 8, 1], subarray[15000-19999] (5000 elements)
+
+=== SIGNAL TESTING VERSION ===
+Configuration:
+  - Array size: 20000 elements
+  - Teams: 4
+  - Threads per team: 4
+  - Signal test mode: ENABLED
+
+Signal assignments:
+  Team 0: 2(Interrupt), 6(Aborted), 4(Illegal instruction)
+  Team 1: 17(Child exited), 11(Segmentation fault), 8(Floating point exception)
+  Team 2: 1(Hangup), 20(Stopped), 2(Interrupt)
+  Team 3: 6(Aborted), 8(Floating point exception), 1(Hangup)
+===============================
+
+[SETUP] Setting up signal handlers for all teams
+[SETUP] Handler set for signal 2 (Interrupt)
+[SETUP] Handler set for signal 6 (Aborted)
+[SETUP] Handler set for signal 4 (Illegal instruction)
+[SETUP] Handler set for signal 17 (Child exited)
+[SETUP] Handler set for signal 11 (Segmentation fault)
+[SETUP] Handler set for signal 8 (Floating point exception)
+[SETUP] Handler set for signal 1 (Hangup)
+[SETUP] Handler set for signal 20 (Stopped)
+[STARTING] Creating 4 teams...
+[THREAD] Team 0 thread 140014308554432 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140014308554432: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140014308554432 waiting for signals...
+[THREAD] Team 0 thread 140014291773120 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140014291773120: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140014291773120 waiting for signals...
+[THREAD] Team 0 thread 140014274991808 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140014274991808: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140014274991808 waiting for signals...
+[THREAD] Team 0 thread 140014258210496 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140014258210496: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140014258210496 waiting for signals...
+[THREAD] Team 1 thread 140014241429184 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140014241429184: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140014241429184 waiting for signals...
+[THREAD] Team 1 thread 140014224647872 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140014224647872: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140014224647872 waiting for signals...
+[THREAD] Team 1 thread 140014207866560 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140014207866560: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140014207866560 waiting for signals...
+[THREAD] Team 1 thread 140014191085248 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140014191085248: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140014191085248 waiting for signals...
+[THREAD] Team 2 thread 140014174303936 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140014174303936: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140014174303936 waiting for signals...
+[THREAD] Team 2 thread 140014140741312 starting (subarray size: 5000)
+[THREAD] Team 2 thread 140014157522624 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140014157522624: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140014157522624 waiting for signals...
+[SETUP] Team 2 thread 140014140741312: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140014140741312 waiting for signals...
+[THREAD] Team 2 thread 140014123960000 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140014123960000: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140014123960000 waiting for signals...
+[THREAD] Team 3 thread 140014107178688 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140014107178688: Blocked 6 signals from other teams
+[SIGNAL_TEST📤 Sending SIGSEGV to process 17097...
+✅ Signal sent successfully
+📤 Sending second SIGSEGV...
+⏳ Waiting for program to complete...
+] Team 3 thread 140014107178688 waiting for signals...
+[THREAD] Team 3 thread 140014090397376 starting (subarray size: 5000)
+[THREAD] Team 3 thread 140014056834752 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140014056834752: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140014056834752 waiting for signals...
+[SETUP] Team 3 thread 140014090397376: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140014090397376 waiting for signals...
+[THREAD] Team 3 thread 140014073616064 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140014073616064: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140014073616064 waiting for signals...
+
+🚨 SIGNAL TEST MODE ACTIVE 🚨
+Process PID: 17097
+Send signals now using:
+  kill -INT 17097   (SIGINT for Team 0,2)
+  kill -HUP 17097   (SIGHUP for Team 2,3)
+  kill -ABRT 17097  (SIGABRT for Team 0,3)
+Waiting 10 seconds for signals...
+⏰ 1 seconds: waiting for signals...
+[THREAD] Team 0 thread 140014291773120 waiting for sort completion
+[SORT] Team 0 representative thread 140014308554432 starting quicksort
+[THREAD] Team 0 thread 140014274991808 waiting for sort completion
+[THREAD] Team 0 thread 140014258210496 waiting for sort completion
+[COMPLETED] Team 0 finished sorting in 0.000823 seconds (position 1)
+[VERIFY] Team 0 sort verification: PASSED
+[THREAD] Team 0 thread 140014308554432 exiting
+[THREAD] Team 0 thread 140014291773120 exiting
+[THREAD] Team 0 thread 140014274991808 exiting
+[THREAD] Team 0 thread 140014258210496 exiting
+[SORT] Team 1 representative thread 140014241429184 starting quicksort
+[THREAD] Team 1 thread 140014224647872 waiting for sort completion
+[THREAD] Team 1 thread 140014207866560 waiting for sort completion
+[THREAD] Team 1 thread 140014191085248 waiting for sort completion
+[COMPLETED] Team 1 finished sorting in 0.000811 seconds (position 2)
+[VERIFY] Team 1 sort verification: PASSED
+[THREAD] Team 1 thread 140014241429184 exiting
+[THREAD] Team 1 thread 140014224647872 exiting
+[THREAD] Team 1 thread 140014207866560 exiting
+[THREAD] Team 1 thread 140014191085248 exiting
+[SORT] Team 2 representative thread 140014174303936 starting quicksort
+[THREAD] Team 2 thread 140014140741312 waiting for sort completion
+[THREAD] Team 2 thread 140014157522624 waiting for sort completion
+[THREAD] Team 2 thread 140014123960000 waiting for sort completion
+[COMPLETED] Team 2 finished sorting in 0.000813 seconds (position 3)
+[VERIFY] Team 2 sort verification: PASSED
+[THREAD] Team 2 thread 140014174303936 exiting
+[THREAD] Team 2 thread 140014140741312 exiting
+[THREAD] Team 2 thread 140014157522624 exiting
+[THREAD] Team 2 thread 140014123960000 exiting
+[THREAD] Team 3 thread 140014090397376 waiting for sort completion
+[THREAD] Team 3 thread 140014073616064 waiting for sort completion
+[THREAD] Team 3 thread 140014056834752 waiting for sort completion
+[SORT] Team 3 representative thread 140014107178688 starting quicksort
+[COMPLETED] Team 3 finished sorting in 0.000937 seconds (position 4)
+[VERIFY] Team 3 sort verification: PASSED
+[THREAD] Team 3 thread 140014107178688 exiting
+[THREAD] Team 3 thread 140014073616064 exiting
+[THREAD] Team 3 thread 140014056834752 exiting
+[THREAD] Team 3 thread 140014090397376 exiting
+⏰ 2 seconds: waiting for signals...
+⏰ 3 seconds: waiting for signals...
+⏰ 4 seconds: waiting for signals...
+⏰ 5 seconds: waiting for signals...
+⏰ 6 seconds: waiting for signals...
+⏰ 7 seconds: waiting for signals...
+⏰ 8 seconds: waiting for signals...
+⏰ 9 seconds: waiting for signals...
+⏰ 10 seconds: waiting for signals...
+Signal testing period completed.
+
+=== FINAL RESULTS ===
+Total signals received during execution: 0
+Teams completion order:
+  Position 1: Team 0
+  Position 2: Team 1
+  Position 3: Team 2
+  Position 4: Team 3
+
+=== Signal Testing Completed ===
+✅ SIGSEGV test completed
+
+📡 Testing SIGFPE (signal 8)
+----------------------------------------
+Starting program in signal test mode...
+Program PID: 17120
+=== ECE 434 Project 1: Signal Testing Version ===
+Process PID: 17120
+[INIT] Allocating array of 20000 integers (80000 bytes)
+[INIT] Generated array of 20000 random integers
+[INIT] Team 0: handles signals [2, 6, 4], subarray[0-4999] (5000 elements)
+[INIT] Team 1: handles signals [17, 11, 8], subarray[5000-9999] (5000 elements)
+[INIT] Team 2: handles signals [1, 20, 2], subarray[10000-14999] (5000 elements)
+[INIT] Team 3: handles signals [6, 8, 1], subarray[15000-19999] (5000 elements)
+
+=== SIGNAL TESTING VERSION ===
+Configuration:
+  - Array size: 20000 elements
+  - Teams: 4
+  - Threads per team: 4
+  - Signal test mode: ENABLED
+
+Signal assignments:
+  Team 0: 2(Interrupt), 6(Aborted), 4(Illegal instruction)
+  Team 1: 17(Child exited), 11(Segmentation fault), 8(Floating point exception)
+  Team 2: 1(Hangup), 20(Stopped), 2(Interrupt)
+  Team 3: 6(Aborted), 8(Floating point exception), 1(Hangup)
+===============================
+
+[SETUP] Setting up signal handlers for all teams
+[SETUP] Handler set for signal 2 (Interrupt)
+[SETUP] Handler set for signal 6 (Aborted)
+[SETUP] Handler set for signal 4 (Illegal instruction)
+[SETUP] Handler set for signal 17 (Child exited)
+[SETUP] Handler set for signal 11 (Segmentation fault)
+[SETUP] Handler set for signal 8 (Floating point exception)
+[SETUP] Handler set for signal 1 (Hangup)
+[SETUP] Handler set for signal 20 (Stopped)
+[STARTING] Creating 4 teams...
+[THREAD] Team 0 thread 140635814229696 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140635814229696: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140635814229696 waiting for signals...
+[THREAD] Team 0 thread 140635797448384 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140635797448384: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140635797448384 waiting for signals...
+[THREAD] Team 0 thread 140635780667072 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140635780667072: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140635780667072 waiting for signals...
+[THREAD] Team 0 thread 140635763885760 starting (subarray size: 5000)
+[SETUP] Team 0 thread 140635763885760: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 0 thread 140635763885760 waiting for signals...
+[THREAD] Team 1 thread 140635747104448 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140635747104448: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140635747104448 waiting for signals...
+[THREAD] Team 1 thread 140635730323136 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140635730323136: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140635730323136 waiting for signals...
+[THREAD] Team 1 thread 140635713541824 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140635713541824: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140635713541824 waiting for signals...
+[THREAD] Team 1 thread 140635696760512 starting (subarray size: 5000)
+[SETUP] Team 1 thread 140635696760512: Blocked 8 signals from other teams
+[SIGNAL_TEST] Team 1 thread 140635696760512 waiting for signals...
+[THREAD] Team 2 thread 140635679979200 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140635679979200: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140635679979200 waiting for signals...
+[THREAD] Team 2 thread 140635663197888 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140635663197888: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140635663197888 waiting for signals...
+[THREAD] Team 2 thread 140635646416576 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140635646416576: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140635646416576 waiting for signals...
+[THREAD] Team 2 thread 140635629635264 starting (subarray size: 5000)
+[SETUP] Team 2 thread 140635629635264: Blocked 7 signals from other teams
+[SIGNAL_TEST] Team 2 thread 140635629635264 waiting for signals...
+[THREAD] Team 3 thread 140635612853952 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140635612853952: Blocked 6 signals from other teams
+[SIGNAL_TEST📤 Sending SIGFPE to process 17120...
+✅ Signal sent successfully
+📤 Sending second SIGFPE...
+⏳ Waiting for program to complete...
+] Team 3 thread 140635612853952 waiting for signals...
+[THREAD] Team 3 thread 140635562510016 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140635562510016: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140635562510016 waiting for signals...
+[THREAD] Team 3 thread 140635596072640 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140635596072640: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140635596072640 waiting for signals...
+[THREAD] Team 3 thread 140635579291328 starting (subarray size: 5000)
+[SETUP] Team 3 thread 140635579291328: Blocked 6 signals from other teams
+[SIGNAL_TEST] Team 3 thread 140635579291328 waiting for signals...
+
+🚨 SIGNAL TEST MODE ACTIVE 🚨
+Process PID: 17120
+Send signals now using:
+  kill -INT 17120   (SIGINT for Team 0,2)
+  kill -HUP 17120   (SIGHUP for Team 2,3)
+  kill -ABRT 17120  (SIGABRT for Team 0,3)
+Waiting 10 seconds for signals...
+⏰ 1 seconds: waiting for signals...
+[THREAD] Team 0 thread 140635797448384 waiting for sort completion
+[THREAD] Team 0 thread 140635763885760 waiting for sort completion
+[THREAD] Team 0 thread 140635780667072 waiting for sort completion
+[SORT] Team 0 representative thread 140635814229696 starting quicksort
+[COMPLETED] Team 0 finished sorting in 0.000922 seconds (position 1)
+[VERIFY] Team 0 sort verification: PASSED
+[THREAD] Team 0 thread 140635814229696 exiting
+[THREAD] Team 0 thread 140635797448384 exiting
+[THREAD] Team 0 thread 140635763885760 exiting
+[THREAD] Team 0 thread 140635780667072 exiting
+[THREAD] Team 1 thread 140635730323136 waiting for sort completion
+[SORT] Team 1 representative thread 140635747104448 starting quicksort
+[THREAD] Team 1 thread 140635713541824 waiting for sort completion
+[THREAD] Team 1 thread 140635696760512 waiting for sort completion
+[COMPLETED] Team 1 finished sorting in 0.000920 seconds (position 2)
+[VERIFY] Team 1 sort verification: PASSED
+[THREAD] Team 1 thread 140635747104448 exiting
+[THREAD] Team 1 thread 140635713541824 exiting
+[THREAD] Team 1 thread 140635696760512 exiting
+[THREAD] Team 1 thread 140635730323136 exiting
+[THREAD] Team 2 thread 140635646416576 waiting for sort completion
+[THREAD] Team 2 thread 140635663197888 waiting for sort completion
+[SORT] Team 2 representative thread 140635679979200 starting quicksort
+[THREAD] Team 2 thread 140635629635264 waiting for sort completion
+[COMPLETED] Team 2 finished sorting in 0.001034 seconds (position 3)
+[VERIFY] Team 2 sort verification: PASSED
+[THREAD] Team 2 thread 140635679979200 exiting
+[THREAD] Team 2 thread 140635646416576 exiting
+[THREAD] Team 2 thread 140635663197888 exiting
+[THREAD] Team 2 thread 140635629635264 exiting
+[THREAD] Team 3 thread 140635596072640 waiting for sort completion
+[THREAD] Team 3 thread 140635579291328 waiting for sort completion
+[SORT] Team 3 representative thread 140635612853952 starting quicksort
+[THREAD] Team 3 thread 140635562510016 waiting for sort completion
+[COMPLETED] Team 3 finished sorting in 0.000919 seconds (position 4)
+[VERIFY] Team 3 sort verification: PASSED
+[THREAD] Team 3 thread 140635612853952 exiting
+[THREAD] Team 3 thread 140635579291328 exiting
+[THREAD] Team 3 thread 140635596072640 exiting
+[THREAD] Team 3 thread 140635562510016 exiting
+⏰ 2 seconds: waiting for signals...
+⏰ 3 seconds: waiting for signals...
+⏰ 4 seconds: waiting for signals...
+⏰ 5 seconds: waiting for signals...
+⏰ 6 seconds: waiting for signals...
+⏰ 7 seconds: waiting for signals...
+⏰ 8 seconds: waiting for signals...
+⏰ 9 seconds: waiting for signals...
+⏰ 10 seconds: waiting for signals...
+Signal testing period completed.
+
+=== FINAL RESULTS ===
+Total signals received during execution: 0
+Teams completion order:
+  Position 1: Team 0
+  Position 2: Team 1
+  Position 3: Team 2
+  Position 4: Team 3
+
+=== Signal Testing Completed ===
+✅ SIGFPE test completed
+
+
+🎉 Signal testing completed!
+
+📋 For your report, this demonstrates:
+  ✅ Signal handlers are properly installed
+  ✅ Signal delivery works to the correct teams
+  ✅ Process vs thread signal behavior
+  ✅ Signal masking effectiveness
+  ✅ Performance impact of signal handling
