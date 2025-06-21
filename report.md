@@ -189,21 +189,4 @@ printf("[SETUP] Team %d thread %lu: Blocked %d signals from other teams\n",
 
 ## Conclusion
 
-This project demonstrates **advanced systems programming competency** through:
-
-**Technical Achievements:**
-- ✅ **Complex Threading Architecture**: 4-team pthread coordination with proper synchronization
-- ✅ **Signal Handling Mastery**: Process-wide handlers with thread-specific signal routing
-- ✅ **Performance Optimization**: High-throughput sorting with minimal overhead
-- ✅ **Systems Debugging**: Systematic identification and resolution of signal delivery issues
-
-**Engineering Process Excellence:**
-- **Problem Discovery**: Comprehensive testing revealed hidden architectural issues
-- **Root Cause Analysis**: Deep understanding of POSIX threading signal semantics
-- **Solution Development**: Multiple implementation approaches with comparative analysis
-- **Quality Assurance**: Extensive testing framework with quantitative validation
-
-**Key Technical Contribution:**
-The discovery and resolution of the signal masking inheritance issue provides valuable insights into pthread signal handling complexity, demonstrating the kind of deep systems understanding required for robust multi-threaded application development.
-
-**Overall Assessment**: This implementation transcends basic requirement fulfillment to demonstrate sophisticated systems programming skills, advanced debugging methodology, and comprehensive understanding of POSIX threading complexities.
+This last section will be more informal, I want to include raw thoughts on the project and try to relate it back to what I am reading at the moment. One of the more interesting articles I have recently read is called "Dynamic Register Allocation on AMD's RDNA 4 GPU Architecture" - Chips and Cheese. 

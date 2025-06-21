@@ -7,6 +7,7 @@
 #include <time.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <limits.h>
 
 // Configuration constants
 #define NUM_TEAMS 4
@@ -16,10 +17,15 @@
 // Global state
 int *main_array;
 int array_size = DEFAULT_ARRAY_SIZE;
+int padded_array_size;
 int threads_per_team = DEFAULT_THREADS_PER_TEAM;
 int completion_order[NUM_TEAMS] = {-1, -1, -1, -1};
 int completion_index = 0;
 pthread_mutex_t completion_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+// Bitonic sort synchronization
+pthread_barrier_t global_barrier;
+int sort_completed = 0;
 
 // Team data structure
 typedef struct {
@@ -90,37 +96,65 @@ void signal_handler(int sig) {
 }
 
 // Function declarations
-int partition(int arr[], int low, int high);
-void quicksort(int arr[], int low, int high);
+void bitonic_compare_and_swap(int *arr, int i, int j, int ascending);
+void bitonic_merge(int *arr, int start, int length, int ascending, int thread_id, int num_threads);
+void bitonic_sort_parallel(int *arr, int start, int length, int ascending, int thread_id, int num_threads);
+int next_power_of_2(int n);
 
-void quicksort(int arr[], int low, int high) {
-    if (low < high) {
-        int pivot_index = partition(arr, low, high);
-        quicksort(arr, low, pivot_index - 1);
-        quicksort(arr, pivot_index + 1, high);
+int next_power_of_2(int n) {
+    int power = 1;
+    while (power < n) {
+        power *= 2;
+    }
+    return power;
+}
+
+void bitonic_compare_and_swap(int *arr, int i, int j, int ascending) {
+    if ((arr[i] > arr[j]) == ascending) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
 
-int partition(int arr[], int low, int high) {
-    int pivot = arr[high];
-    int i = low - 1;
+void bitonic_merge(int *arr, int start, int length, int ascending, int thread_id, int num_threads) {
+    if (length <= 1) return;
     
-    for (int j = low; j < high; j++) {
-        if (arr[j] < pivot) {
-            i++;
-            // Swap elements
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
+    int half = length / 2;
+    
+    // Calculate work distribution for this thread for compare-and-swap phase
+    int work_per_thread = (half + num_threads - 1) / num_threads;
+    int thread_start = thread_id * work_per_thread;
+    int thread_end = thread_start + work_per_thread;
+    if (thread_end > half) thread_end = half;
+    
+    // All threads participate in parallel compare-and-swap phase
+    for (int i = thread_start; i < thread_end; i++) {
+        bitonic_compare_and_swap(arr, start + i, start + i + half, ascending);
     }
     
-    // Place pivot in correct position
-    int temp = arr[i + 1];
-    arr[i + 1] = arr[high];
-    arr[high] = temp;
+    // Synchronize all threads after compare-and-swap
+    pthread_barrier_wait(&global_barrier);
     
-    return i + 1;
+    // All threads recursively merge both halves
+    bitonic_merge(arr, start, half, ascending, thread_id, num_threads);
+    bitonic_merge(arr, start + half, half, ascending, thread_id, num_threads);
+}
+
+void bitonic_sort_parallel(int *arr, int start, int length, int ascending, int thread_id, int num_threads) {
+    if (length <= 1) return;
+    
+    int half = length / 2;
+    
+    // All threads work on both halves but in opposite directions
+    bitonic_sort_parallel(arr, start, half, 1, thread_id, num_threads);
+    bitonic_sort_parallel(arr, start + half, half, 0, thread_id, num_threads);
+    
+    // Synchronize before merge
+    pthread_barrier_wait(&global_barrier);
+    
+    // Merge the two bitonic sequences
+    bitonic_merge(arr, start, length, ascending, thread_id, num_threads);
 }
 void setup_team_signals(int team_id) {
     if (team_id < 0 || team_id >= NUM_TEAMS) {
@@ -164,63 +198,90 @@ void setup_team_signals(int team_id) {
     }
 }
 
-void* thread_sort_function(void* arg) {
+void* bitonic_thread_function(void* arg) {
     team_data_t *team = (team_data_t*)arg;
     pthread_t self = pthread_self();
     
-    printf("[THREAD] Team %d starting (subarray size: %d)\n", 
-           team->team_id, team->subarray_size);
+    // Find thread index within team
+    int thread_index = -1;
+    for (int i = 0; i < team->num_threads; i++) {
+        if (pthread_equal(self, team->threads[i])) {
+            thread_index = i;
+            break;
+        }
+    }
+    
+    if (thread_index == -1) {
+        printf("[ERROR] Could not identify thread in team %d\n", team->team_id);
+        return NULL;
+    }
+    
+    printf("[BITONIC] Team %d Thread %d starting (array size: %d)\n", 
+           team->team_id, thread_index, padded_array_size);
     
     setup_team_signals(team->team_id);
     
-    clock_gettime(CLOCK_MONOTONIC, &team->start_time);
+    // Calculate global thread ID
+    int global_thread_id = team->team_id * team->num_threads + thread_index;
+    int total_threads = NUM_TEAMS * threads_per_team;
     
-    // Only the first thread in each team performs the actual sorting
-    if (pthread_equal(self, team->threads[0])) {
-        printf("[SORT] Team %d starting quicksort\n", team->team_id);
-        
-        if (team->subarray == NULL) {
-            printf("[ERROR] Team %d: Subarray is NULL!\n", team->team_id);
-            return NULL;
-        }
-        
-        quicksort(team->subarray, 0, team->subarray_size - 1);
-        
+    printf("[BITONIC] Global thread %d (Team %d, Local %d) ready for parallel sorting\n", 
+           global_thread_id, team->team_id, thread_index);
+    
+    // Record start time (only first thread)
+    if (global_thread_id == 0) {
+        clock_gettime(CLOCK_MONOTONIC, &team->start_time);
+        printf("[BITONIC] Starting parallel bitonic sort with %d threads\n", total_threads);
+    }
+    
+    // All threads participate in parallel bitonic sort
+    bitonic_sort_parallel(main_array, 0, padded_array_size, 1, global_thread_id, total_threads);
+    
+    // Record completion time and verify (only first thread)
+    if (global_thread_id == 0) {
         clock_gettime(CLOCK_MONOTONIC, &team->end_time);
         
-        // Update completion tracking
         pthread_mutex_lock(&completion_mutex);
-        if (completion_index < NUM_TEAMS) {
-            completion_order[completion_index] = team->team_id;
-            completion_index++;
-            team->completed = 1;
-            
-            double elapsed = (team->end_time.tv_sec - team->start_time.tv_sec) + 
-                            (team->end_time.tv_nsec - team->start_time.tv_nsec) / 1e9;
-            
-            printf("[COMPLETED] Team %d finished in %.6f seconds (position %d)\n", 
-                   team->team_id, elapsed, completion_index);
-        }
+        sort_completed = 1;
+        completion_order[0] = -1; // All teams collaborated
+        completion_index = 1;
+        
+        double elapsed = (team->end_time.tv_sec - team->start_time.tv_sec) + 
+                        (team->end_time.tv_nsec - team->start_time.tv_nsec) / 1e9;
+        
+        printf("[COMPLETED] Parallel bitonic sort finished in %.6f seconds\n", elapsed);
         pthread_mutex_unlock(&completion_mutex);
         
         // Verify sort correctness
         int is_sorted = 1;
-        for (int i = 1; i < team->subarray_size && i < 100; i++) {
-            if (team->subarray[i-1] > team->subarray[i]) {
+        for (int i = 1; i < array_size; i++) {
+            if (main_array[i-1] > main_array[i]) {
                 is_sorted = 0;
+                printf("[VERIFY ERROR] Position %d: %d > %d\n", i, main_array[i-1], main_array[i]);
                 break;
             }
         }
-        printf("[VERIFY] Team %d sort: %s\n", 
-               team->team_id, is_sorted ? "PASSED" : "FAILED");
+        printf("[VERIFY] Bitonic sort verification: %s\n", is_sorted ? "PASSED" : "FAILED");
+        
+        // Show sample of sorted array
+        printf("[RESULT] Sample sorted array: ");
+        int sample_size = (array_size < 20) ? array_size : 20;
+        for (int i = 0; i < sample_size; i++) {
+            printf("%d ", main_array[i]);
+        }
+        if (array_size > 20) printf("...");
+        printf("\n");
     }
     
-    // All threads wait for team completion
-    while (!team->completed) {
+    // Mark team completion for this thread's team
+    team->completed = 1;
+    
+    // All threads wait for global completion
+    while (!sort_completed) {
         usleep(1000);
     }
     
-    printf("[THREAD] Team %d thread exiting\n", team->team_id);
+    printf("[BITONIC] Team %d Thread %d exiting\n", team->team_id, thread_index);
     return NULL;
 }
 
@@ -249,48 +310,58 @@ void setup_signal_handlers() {
 
 
 void initialize_array() {
-    printf("[INIT] Allocating array of %d integers\n", array_size);
+    // Calculate padded size for bitonic sort (must be power of 2)
+    padded_array_size = next_power_of_2(array_size);
     
-    main_array = malloc(array_size * sizeof(int));
+    printf("[INIT] Original array size: %d, Padded to: %d (power of 2)\n", 
+           array_size, padded_array_size);
+    
+    main_array = malloc(padded_array_size * sizeof(int));
     if (!main_array) {
         printf("[ERROR] Failed to allocate memory: %s\n", strerror(errno));
         exit(1);
     }
     
     srand(time(NULL));
+    
+    // Fill original array with random values
     for (int i = 0; i < array_size; i++) {
         main_array[i] = rand() % 10000;
     }
     
-    printf("[INIT] Generated %d random integers\n", array_size);
+    // Pad with maximum values to ensure they sort to the end
+    for (int i = array_size; i < padded_array_size; i++) {
+        main_array[i] = INT_MAX;
+    }
+    
+    printf("[INIT] Generated %d random integers, padded with %d max values\n", 
+           array_size, padded_array_size - array_size);
 }
 
 void create_teams() {
-    int subarray_size = array_size / NUM_TEAMS;
-    int remainder = array_size % NUM_TEAMS;
+    printf("[INIT] Creating %d teams with %d threads each for parallel bitonic sort\n", NUM_TEAMS, threads_per_team);
     
-    printf("[INIT] Creating %d teams with %d threads each\n", NUM_TEAMS, threads_per_team);
+    // Initialize global barrier for thread synchronization
+    int total_threads = NUM_TEAMS * threads_per_team;
+    if (pthread_barrier_init(&global_barrier, NULL, total_threads) != 0) {
+        printf("[ERROR] Failed to initialize global barrier: %s\n", strerror(errno));
+        exit(1);
+    }
+    printf("[INIT] Global barrier initialized for %d threads\n", total_threads);
     
     for (int i = 0; i < NUM_TEAMS; i++) {
         teams[i].team_id = i;
         teams[i].num_threads = threads_per_team;
-        teams[i].subarray_size = subarray_size + (i < remainder ? 1 : 0);
-        teams[i].start_index = i * subarray_size + (i < remainder ? i : remainder);
+        teams[i].subarray = NULL; // No longer using subarrays
+        teams[i].subarray_size = 0;
+        teams[i].start_index = 0;
         teams[i].completed = 0;
         
-        printf("[INIT] Team %d handles signals [%d, %d, %d]\n", 
-               i, team_signals[i][0], team_signals[i][1], team_signals[i][2]);
-        
-        // Allocate and copy subarray
-        size_t subarray_bytes = teams[i].subarray_size * sizeof(int);
-        teams[i].subarray = malloc(subarray_bytes);
-        if (!teams[i].subarray) {
-            printf("[ERROR] Failed to allocate memory for team %d: %s\n", 
-                   i, strerror(errno));
-            exit(1);
-        }
-        
-        memcpy(teams[i].subarray, &main_array[teams[i].start_index], subarray_bytes);
+        printf("[INIT] Team %d handles signals [%d(%s), %d(%s), %d(%s)]\n", 
+               i, 
+               team_signals[i][0], strsignal(team_signals[i][0]),
+               team_signals[i][1], strsignal(team_signals[i][1]),
+               team_signals[i][2], strsignal(team_signals[i][2]));
         
         teams[i].threads = malloc(threads_per_team * sizeof(pthread_t));
         if (!teams[i].threads) {
@@ -299,9 +370,8 @@ void create_teams() {
             exit(1);
         }
         
-        printf("[INIT] Team %d: subarray[%d-%d] (%d elements)\n", 
-               i, teams[i].start_index, 
-               teams[i].start_index + teams[i].subarray_size - 1, teams[i].subarray_size);
+        printf("[INIT] Team %d: %d threads ready for global array collaboration\n", 
+               i, threads_per_team);
     }
 }
 
@@ -377,7 +447,7 @@ int main(int argc, char *argv[]) {
         
         for (int j = 0; j < teams[i].num_threads; j++) {
             int result = pthread_create(&teams[i].threads[j], NULL, 
-                                      thread_sort_function, &teams[i]);
+                                      bitonic_thread_function, &teams[i]);
             if (result != 0) {
                 printf("[ERROR] Failed to create thread %d for team %d: %s\n", 
                        j, i, strerror(result));
@@ -421,33 +491,20 @@ int main(int argc, char *argv[]) {
     // Print final results
     printf("\n=== FINAL RESULTS ===\n");
     printf("Total execution time: %.6f seconds\n", total_time);
-    printf("Teams completion order:\n");
     
-    for (int i = 0; i < NUM_TEAMS; i++) {
-        if (completion_order[i] != -1) {
-            double team_time = (teams[completion_order[i]].end_time.tv_sec - teams[completion_order[i]].start_time.tv_sec) + 
-                              (teams[completion_order[i]].end_time.tv_nsec - teams[completion_order[i]].start_time.tv_nsec) / 1e9;
-            printf("  Position %d: Team %d (%.6f seconds)\n", i + 1, completion_order[i], team_time);
-        } else {
-            printf("  Position %d: [ERROR - Team not recorded]\n", i + 1);
-        }
-    }
-    
-    // Performance analysis
-    if (completion_order[0] != -1 && completion_order[NUM_TEAMS-1] != -1) {
-        int fastest_team = completion_order[0];
-        int slowest_team = completion_order[NUM_TEAMS-1];
+    if (sort_completed) {
+        double sort_time = (teams[0].end_time.tv_sec - teams[0].start_time.tv_sec) + 
+                          (teams[0].end_time.tv_nsec - teams[0].start_time.tv_nsec) / 1e9;
         
-        double fastest_time = (teams[fastest_team].end_time.tv_sec - teams[fastest_team].start_time.tv_sec) + 
-                             (teams[fastest_team].end_time.tv_nsec - teams[fastest_team].start_time.tv_nsec) / 1e9;
-        double slowest_time = (teams[slowest_team].end_time.tv_sec - teams[slowest_team].start_time.tv_sec) + 
-                             (teams[slowest_team].end_time.tv_nsec - teams[slowest_team].start_time.tv_nsec) / 1e9;
-        
-        printf("\nPerformance Analysis:\n");
-        printf("  Fastest team: %d (%.6f seconds)\n", fastest_team, fastest_time);
-        printf("  Slowest team: %d (%.6f seconds)\n", slowest_team, slowest_time);
-        printf("  Speed difference: %.2fx\n", slowest_time / fastest_time);
-        printf("  Elements per second (fastest): %.0f\n", teams[fastest_team].subarray_size / fastest_time);
+        printf("Parallel bitonic sort results:\n");
+        printf("  Algorithm: Parallel Bitonic Sort\n");
+        printf("  Total threads: %d (across %d teams)\n", NUM_TEAMS * threads_per_team, NUM_TEAMS);
+        printf("  Array size: %d elements (padded to %d)\n", array_size, padded_array_size);
+        printf("  Sort time: %.6f seconds\n", sort_time);
+        printf("  Elements per second: %.0f\n", array_size / sort_time);
+        printf("  Parallel efficiency: All %d threads collaborated\n", NUM_TEAMS * threads_per_team);
+    } else {
+        printf("[ERROR] Sort did not complete successfully\n");
     }
     
     // Restore default signal handlers
@@ -464,8 +521,10 @@ int main(int argc, char *argv[]) {
     // Restore original signal mask
     pthread_sigmask(SIG_SETMASK, &old_mask, NULL);
     
+    // Cleanup
+    pthread_barrier_destroy(&global_barrier);
+    
     for (int i = 0; i < NUM_TEAMS; i++) {
-        free(teams[i].subarray);
         free(teams[i].threads);
     }
     free(main_array);
